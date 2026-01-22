@@ -1,7 +1,8 @@
+from __future__ import annotations
 
-def exon(a):
-    
-    dic ={
+from typing import Dict
+
+_EXON_REF: Dict[str, str] = {
     "ALK_E20" : "accacccacctgcagtgtaccgccggaagcaccaggagctgcaagccatgcagatggagctgcagagccctgagtacaagctgagcaagctccgcacctcgaccatcatgaccgactacaaccccaactactgctttgctggcaagacctcctccatcagtgacctgaaggaggtgccgcggaaaaacatcaccctcattcggtgagcgccc".upper(),
 
     "ALK_E21" : "ttctcctttgcacaggggtctgggccatggcgcctttggggaggtgtatgaaggccaggtgtccggaatgcccaacgacccaagccccctgcaagtggctgtgaaggtaagaagtg".upper(),
@@ -18,8 +19,17 @@ def exon(a):
     "ALK_E27" : "ctgtcccatgcccaggtcctttggagtgctgctatgggaaatcttttctcttggatatatgccataccccagcaaaagcaaccaggaagttctggagtttgtcaccagtggaggccggatggacccacccaagaactgccctgggcctgtgtatgactct".upper(),
     "ALK_E28" : "tgcttcttcttttagataccggataatgactcagtgctggcaacatcagcctgaagacaggcccaactttgccatcattttggagaggattgaatactgcacccaggtaaaacatt".upper()
 
+}
 
-    
-    }
 
-    return dic["ALK_E"+str(a)]
+
+def exon(a: int) -> str:
+    """
+    Return uppercase reference sequence for ALK exon a (20–28).
+    Used to define FP seed and expected target length for FASTQ trimming.
+    """
+    key = f"ALK_E{int(a)}"
+    try:
+        return _EXON_REF[key]
+    except KeyError as e:
+        raise ValueError(f"Unsupported exon: {a}. Must be one of 20–28.") from e
