@@ -6,6 +6,7 @@ This repository contains custom Python code used to process amplicon NGS data an
 ## Overview of pipeline
 1. **FASTQ parsing and trimmed read counting (custom code)**  
    Amplicon FASTQ reads are scanned for a forward-primer seed (first 10 nt of the exon reference), and a fixed-length sequence segment is extracted and counted. Indel-length reads are excluded by enforcing the expected length.
+   Reference amplicon sequences for ALK exons 20–28 used for read trimming were embedded in src/endo_ref.py (uppercase), matching the amplicon design used in this study.
 
 2. **Variant-level count table generation (custom code)**  
    Trimmed read counts are mapped onto library barcode tables (e.g., `ALK_E23_aa.csv`) and exported as count matrices.
@@ -13,11 +14,6 @@ This repository contains custom Python code used to process amplicon NGS data an
 3. **Downstream analyses**  
    Additional scripts compute RPM/log2 fold-change and support analysis/figure generation for drug resistance and ALK dependence.
 
-## Installation
-### Option A: conda (recommended)
-```bash
-conda env create -f environment.yml
-conda activate alk-variant-atlas
 
 
 Usage
