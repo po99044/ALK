@@ -32,20 +32,11 @@ python scripts/01_fastq_to_counts.py \
   --out results/ALK_E23_R2_D21_counts.csv
 
 
-2) Count table → RPM/LFC
+2) Count modification
 
-python scripts/02_compute_rpm_lfc.py \
-  --in results/ALK_E23_R2_D21_counts.csv \
-  --baseline U \
-  --cols A L T U \
-  --out results/ALK_E23_R2_D21_rpm_lfc.csv
 
 
 3) Example figure
-
-python scripts/06_alk_drug_figures.py \
-  --coverage_csv Result/Coverage_SNV.csv \
-  --outdir figures/drug
 
 
 
