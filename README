@@ -18,3 +18,46 @@ This repository contains custom Python code used to process amplicon NGS data an
 ```bash
 conda env create -f environment.yml
 conda activate alk-variant-atlas
+
+
+Usage
+1) FASTQ → count table
+
+python scripts/01_fastq_to_counts.py \
+  --exon 23 \
+  --barcode_csv path/to/ALK_E23_aa.csv \
+  --sample D10_R1=/path/to/E23R1D10.extendedFrags.fastq \
+  --sample D10_R2=/path/to/E23R2D10.extendedFrags.fastq \
+  --sample REF=/path/to/H3122_E23.extendedFrags.fastq \
+  --sample A=/path/to/23R2A.extendedFrags.fastq \
+  --sample L=/path/to/23R2L.extendedFrags.fastq \
+  --sample T=/path/to/23R2T.extendedFrags.fastq \
+  --sample U=/path/to/23R2U.extendedFrags.fastq \
+  --out results/ALK_E23_R2_D21_counts.csv
+
+
+2) Count table → RPM/LFC
+
+python scripts/02_compute_rpm_lfc.py \
+  --in results/ALK_E23_R2_D21_counts.csv \
+  --baseline U \
+  --cols A L T U \
+  --out results/ALK_E23_R2_D21_rpm_lfc.csv
+
+
+3) Example figure
+
+python scripts/06_alk_drug_figures.py \
+  --coverage_csv Result/Coverage_SNV.csv \
+  --outdir figures/drug
+
+
+
+
+License
+
+This repository is released under an OSI-compliant open-source license (see LICENSE).
+
+Citation
+
+If you use this code, please cite the GitHub repository and the archived Zenodo release (DOI), as described in the manuscript.
